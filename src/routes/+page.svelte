@@ -1,44 +1,23 @@
 <script>
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
-	import { get } from 'svelte/store';
+	import { goto, invalidate } from '$app/navigation';
 
-	let name = $state('');
+	const { data } = $props();
+	let name = $state(data.name || '');
 	let timeoutId;
-	let result = $state({
-		count: 0,
-		name: '',
-		age: 0
-	});
-
-	async function fetchName(query) {
-		console.log('Buscando por:', query);
-		result.count += 1;
-		result.name = query;
-		result.age = Math.floor(Math.random() * 100);
-	}
 
 	function searchName() {
 		clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => {
+		timeoutId = setTimeout(async () => {
 			if (name.trim()) {
-				goto(`/?name=${encodeURIComponent(name.trim())}`, { replaceState: true });
-				fetchName(name.trim());
+				await goto(`/?name=${encodeURIComponent(name.trim())}`, { replaceState: true });
+				await invalidate();
 			} else {
-				goto('/', { replaceState: true });
-				result = { count: 0, name: '', age: 0 };
+				await goto('/', { replaceState: true });
+				await invalidate();
 			}
 		}, 800);
 	}
-
-	onMount(() => {
-		const urlName = get(page).url.searchParams.get('name');
-		if (urlName) {
-			name = urlName;
-			fetchName(urlName);
-		}
-	});
 </script>
 
 <header class="header">
@@ -53,12 +32,12 @@
 			<input type="text" id="name-input" bind:value={name} oninput={searchName} />
 		</label>
 	</form>
-	{#if result.count > 0}
+	{#if data.result.name !== ''}
 		<div class="card-result">
 			<h2>Resultado da busca:</h2>
-			<p>Nome: {result.name}</p>
-			<p>Idade: {result.age}</p>
-			<p>Nº de Buscas: {result.count}</p>
+			<p>Nome: {data.result.name}</p>
+			<p>Idade: {data.result.age}</p>
+			<p>Nº de Buscas: {data.result.count}</p>
 		</div>
 	{/if}
 </div>
@@ -68,7 +47,6 @@
 		margin: 0;
 		padding: 0;
 		font-family: 'Inter', sans-serif;
-		background: #a1273d;
 		background: radial-gradient(circle, rgba(161, 39, 61, 1) 0%, rgba(235, 59, 90, 1) 50%);
 	}
 
@@ -133,6 +111,8 @@
 
 		display: flex;
 		flex-direction: column;
+
+        cursor: pointer;
 	}
 	.search-form label input {
 		max-width: 100%;
@@ -140,7 +120,7 @@
 		border: 2px solid #a1273d;
 		border-radius: 0.5rem;
 
-		font-size: 1rem;
+		font-size: 1.5rem;
 		color: #333;
 
 		transition: border-color 0.5s ease;
