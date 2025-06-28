@@ -43,7 +43,7 @@
 		</form>
 		{#if data.result.name !== ''}
 			<div class={darkMode ? 'card-result card-result-dark-mode' : 'card-result'}>
-				<h2>Resultado da busca:</h2>
+				<h3>Resultado da busca:</h3>
 				<p>Nome: {data.result.name}</p>
 				<p>Idade: {data.result.age}</p>
 				<p>Nº de Buscas: {data.result.count}</p>
@@ -242,4 +242,20 @@
 		width: 2rem;
 		height: 2rem;
 	}
+
+    @media (max-width: 900px) {
+        .container {
+            width: 90%;
+        }
+
+        .hero {
+            height: auto;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .form-title {
+            font-size: 1.2rem;
+        }
+    }
 </style>
