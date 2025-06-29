@@ -5,7 +5,7 @@
 	const { data } = $props();
 	let name = $state(data.name || '');
 	let timeoutId;
-	let darkMode = $state(true);
+	let darkMode = $state(false);
 
 	function searchName() {
 		clearTimeout(timeoutId);
