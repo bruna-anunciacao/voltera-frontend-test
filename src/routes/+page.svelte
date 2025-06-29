@@ -21,26 +21,31 @@
 	}
 
 	function toggle() {
-        darkMode = !darkMode;
+		darkMode = !darkMode;
 		window.document.body.classList.toggle('dark-mode');
 	}
-
-
 </script>
 
 <header class="header">
 	<img src="./idadex-logo.png" alt="IdadeX icon" />
 	<h1>IdadeX</h1>
 </header>
-<section class="hero">
+<main class="hero">
 	<div class={darkMode ? 'container container-dark-mode' : 'container'}>
-        <h2 class="form-title">A idade média do nome</h2>
-		<form class="search-form">
-			<label>
+		<h2 class="form-title">A idade média do nome</h2>
+		<form class="search-form" role="search">
+			<label for="name-input">
 				<p>Digite um nome:</p>
-				<input type="text" id="name-input" bind:value={name} oninput={searchName} placeholder="Nome"/>
 			</label>
+			<input
+				type="text"
+				id="name-input"
+				bind:value={name}
+				oninput={searchName}
+				placeholder="Nome"
+			/>
 		</form>
+
 		{#if data.result.name !== ''}
 			<div class={darkMode ? 'card-result card-result-dark-mode' : 'card-result'}>
 				<h3>Resultado da busca:</h3>
@@ -50,14 +55,20 @@
 			</div>
 		{/if}
 	</div>
-</section>
+</main>
+
 <div class="dark-mode-toggle">
-	<button class={darkMode ? 'dark-mode-button' : 'light-mode-button'} onclick={toggle}
-		><img
-			src={darkMode ? './light-mode-icon.svg' : './dark-mode-icon.svg'}
-			alt={darkMode ? 'activate light mode button' : 'activate dark mode button'}
-		/></button
+	<button
+		class={darkMode ? 'dark-mode-button' : 'light-mode-button'}
+		onclick={toggle}
+		aria-label={darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'}
 	>
+		<img
+			src={darkMode ? './light-mode-icon.svg' : './dark-mode-icon.svg'}
+			alt=""
+			role="presentation"
+		/>
+	</button>
 </div>
 
 <style>
@@ -124,20 +135,20 @@
 
 		background: white;
 
-        transition: all 0.5s ease-out;
+		transition: all 0.5s ease-out;
 	}
 
-    .container-dark-mode {
-        background: #282828;
+	.container-dark-mode {
+		background: #282828;
 
-        color: white;
+		color: white;
 
-        transition: all 0.5s ease-out;
-    }
+		transition: all 0.5s ease-out;
+	}
 
-    .hero .container-dark-mode .form-title {
-        color: white;
-    }
+	.hero .container-dark-mode .form-title {
+		color: white;
+	}
 	.search-form {
 		width: 80%;
 		display: flex;
@@ -148,8 +159,8 @@
 		margin-bottom: 1rem;
 
 		color: #333;
-        font-size: 1.6rem;
-        text-transform: uppercase;
+		font-size: 1.6rem;
+		text-transform: uppercase;
 	}
 	.search-form label {
 		width: 100%;
@@ -159,8 +170,9 @@
 
 		cursor: pointer;
 	}
-	.search-form label input {
-		max-width: 100%;
+
+	.search-form input {
+		width: 100%;
 		padding: 0.5rem;
 		border: 2px solid #a1273d;
 		border-radius: 0.5rem;
@@ -171,11 +183,11 @@
 		transition: border-color 0.5s ease;
 	}
 
-    .container-dark-mode .search-form label input {
-        background: #3f3f3f;
+	.container-dark-mode .search-form input {
+		background: #3f3f3f;
 
-        color: white;
-    }
+		color: white;
+	}
 
 	.card-result {
 		width: 80%;
@@ -187,10 +199,10 @@
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 
-    .card-result-dark-mode {
-        background: #3f3f3f;
-        color: white;
-    }
+	.card-result-dark-mode {
+		background: #3f3f3f;
+		color: white;
+	}
 
 	.dark-mode-toggle {
 		width: 100%;
@@ -212,7 +224,7 @@
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
 
 		cursor: pointer;
-        transition: all 0.5s ease-out;
+		transition: all 0.5s ease-out;
 	}
 
 	.light-mode-button img {
@@ -235,7 +247,7 @@
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
 
 		cursor: pointer;
-        transition: all 0.5s ease-out;
+		transition: all 0.5s ease-out;
 	}
 
 	.dark-mode-button img {
@@ -243,19 +255,24 @@
 		height: 2rem;
 	}
 
-    @media (max-width: 900px) {
-        .container {
-            width: 90%;
-        }
+	@media (max-width: 1200px) {
+		.container {
+			width: 50%;
+		}
+	}
+	@media (max-width: 900px) {
+		.container {
+			width: 90%;
+		}
 
-        .hero {
-            height: auto;
-        }
-    }
+		.hero {
+			height: auto;
+		}
+	}
 
-    @media (max-width: 500px) {
-        .form-title {
-            font-size: 1.2rem;
-        }
-    }
+	@media (max-width: 500px) {
+		.form-title {
+			font-size: 1.2rem;
+		}
+	}
 </style>
