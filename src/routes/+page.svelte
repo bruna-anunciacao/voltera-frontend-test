@@ -27,7 +27,7 @@
 </script>
 
 <header class="header">
-	<img src="./idadex-logo.png" alt="IdadeX icon" />
+	<img src="./idadex-logo.png" alt="ícone do site IdadeX" />
 	<h1>IdadeX</h1>
 </header>
 <main class="hero">
@@ -65,7 +65,7 @@
 	>
 		<img
 			src={darkMode ? './light-mode-icon.svg' : './dark-mode-icon.svg'}
-			alt=""
+			alt={darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'}
 			role="presentation"
 		/>
 	</button>
