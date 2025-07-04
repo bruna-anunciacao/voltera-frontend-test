@@ -32,8 +32,8 @@ IdadeX é uma aplicação web que estima a idade média de pessoas com um determ
 
 ```bash
 # Clone o repositório
-git clone https://github.com/bruna-anunciacao/voltera-frontend-test.git
-cd voltera-frontend-test
+git clone https://github.com/bruna-anunciacao/idadex.git
+cd idadex
 
 # Instale as dependências
 npm install
